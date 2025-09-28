@@ -4,6 +4,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { IconBrandGithub } from "@tabler/icons-react";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function SignupFormDemo() {
   interface FormDetails {
@@ -11,15 +13,39 @@ export default function SignupFormDemo() {
     password: string;
     name: string;
   }
+
+  const router = useRouter();
+
   const [formDetails, setFormDetails] = useState<FormDetails>({
     name: "",
     email: "",
     password: "",
   });
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    await authClient.signUp.email(
+      {
+        email: formDetails.email,
+        password: formDetails.password,
+        name: formDetails.password,
+      },
+      {
+        onSuccess: () => {
+          router.push("/dashboard");
+        },
+      }
+    );
   };
+
+  const handleGitSign = async () => {
+    const base_url = process.env.NEXT_PUBLIC_BASE_URL;
+    await authClient.signIn.social({
+      provider: "github",
+      callbackURL: `${base_url}/dashboard`,
+    });
+  };
+
   return (
     <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
@@ -85,7 +111,8 @@ export default function SignupFormDemo() {
         <div className="flex flex-col space-y-4">
           <button
             className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-            type="submit"
+            type="button"
+            onClick={handleGitSign}
           >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-sm text-neutral-700 dark:text-neutral-300">
