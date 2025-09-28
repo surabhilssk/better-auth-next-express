@@ -5,6 +5,8 @@ import { PrismaClient } from "@prisma/client";
 import { openAPI } from "better-auth/plugins";
 
 const prisma = new PrismaClient();
+const trustedOrigin = process.env.FRONTEND_URL || ""
+
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql", // or "mysql", "postgresql", ...etc
@@ -12,6 +14,13 @@ export const auth = betterAuth({
     emailAndPassword:{
         enabled: true,
     },
+    socialProviders: {
+        github: {
+            clientId:process.env.GITHUB_CLIENT_ID as string,
+            clientSecret:process.env.GITHUB_CLIENT_SECRET as string,
+        }
+    },
+    trustedOrigins: [trustedOrigin],
     plugins: [
         openAPI(),
     ]
