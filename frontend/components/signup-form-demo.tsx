@@ -39,7 +39,7 @@ export default function SignupFormDemo() {
   };
 
   const handleGitSign = async () => {
-    const base_url = process.env.NEXT_PUBLIC_BASE_URL;
+    const base_url = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
     await authClient.signIn.social({
       provider: "github",
       callbackURL: `${base_url}/dashboard`,
