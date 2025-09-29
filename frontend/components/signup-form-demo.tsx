@@ -39,19 +39,19 @@ export default function SignupFormDemo() {
   };
 
   const handleGitSign = async () => {
-    // const base_url = process.env.NEXT_PUBLIC_BASE_URL;
+    const base_url = process.env.NEXT_PUBLIC_BASE_URL;
     await authClient.signIn.social(
       {
         provider: "github",
-        // callbackURL: `${base_url}/dashboard`,
-      },
-      {
-        onSuccess: (ctx) => {
-          if (ctx.response.ok) {
-            router.push("/dashboard");
-          }
-        },
+        callbackURL: `${base_url}/dashboard`,
       }
+      // {
+      //   onSuccess: (ctx) => {
+      //     if (ctx.response.ok) {
+      //       router.push("/dashboard");
+      //     }
+      //   },
+      // }
     );
   };
 
