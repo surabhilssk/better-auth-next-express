@@ -27,7 +27,6 @@ export const auth = betterAuth({
             sameSite: 'none',
             secure: true,
             httpOnly: true,
-            domain: "better-auth-next-express.vercel.app"
         }
     },
     plugins: [
