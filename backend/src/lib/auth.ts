@@ -28,7 +28,10 @@ export const auth = betterAuth({
             secure: true,
             httpOnly: true,
         },
-
+        crossSubDomainCookies: {
+            enabled: true,
+            domain: ".vercel.app"
+        }
     },
     plugins: [
         openAPI(),
