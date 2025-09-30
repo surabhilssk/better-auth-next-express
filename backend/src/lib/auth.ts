@@ -22,13 +22,13 @@ export const auth = betterAuth({
         }
     },
     trustedOrigins: [trustedOrigin],
-    advanced: {
-        defaultCookieAttributes: {
-            sameSite: 'none',
-            secure: true,
-            httpOnly: true,
-        },
-    },
+    // advanced: {
+    //     defaultCookieAttributes: {
+    //         sameSite: 'none',
+    //         secure: true,
+    //         httpOnly: true,
+    //     },
+    // },
     plugins: [
         openAPI(),
     ]
