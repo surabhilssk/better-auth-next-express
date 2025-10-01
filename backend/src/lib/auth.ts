@@ -27,6 +27,7 @@ export const auth = betterAuth({
             sameSite: 'none',
             secure: true,
             // httpOnly: true,
+            domain: ".surabhilssk.fun"
         },
     },
     plugins: [
